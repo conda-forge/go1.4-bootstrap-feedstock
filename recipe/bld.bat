@@ -6,6 +6,9 @@ cd "%PKG_NAME%\src"
 call make.bat
 if errorlevel 1 exit 1
 
+rem Don't need the cached build objects
+rmdir /s /q %SRC_DIR%\%PKG_NAME%\pkg\obj
+
 mkdir "%PREFIX%\%PKG_NAME%"
 xcopy /s /y /i /q "%SRC_DIR%\%PKG_NAME%\*" "%PREFIX%\%PKG_NAME%\"
 
