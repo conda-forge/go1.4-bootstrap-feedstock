@@ -2,5 +2,6 @@
 @set "GOROOT_BOOTSTRAP=%CONDA_PREFIX%\go1.4-bootstrap"
 
 if "%CONDA_BUILD%"==1 (
-  set GOPATH=%SRC_DIR%
+  @set GOPATH=%SRC_DIR%
+  @set "GOROOT_BOOTSTRAP=%BUILD_PREFIX%\go1.4-bootstrap"
 )
