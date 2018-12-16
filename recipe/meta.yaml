@@ -51,7 +51,8 @@ outputs:
         {% else %}
         - {{ n }}toolchain
         {% endif %}
-        - perl # [not win]
+        - gettext  # [not win]
+        - perl  # [not win]
     test:
       files:
         - hello.go
