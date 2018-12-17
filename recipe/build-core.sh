@@ -14,7 +14,6 @@ cp -a $SRC_DIR/go1.4-bootstrap ${PREFIX}/
 # Copy the rendered [de]activate scripts to %PREFIX%\etc\conda\[de]activate.d.
 for F in activate deactivate; do
   mkdir -p "${PREFIX}/etc/conda/${F}.d"
-  cat "${RECIPE_DIR}/${F}-go1.4-bootstrap.sh" \
-    | envsubst  '${PREFIX}' \
-    > "${PREFIX}/etc/conda/${F}.d/go1.4-bootstrap.sh"
+  cp "${RECIPE_DIR}/${F}-go1.4-bootstrap.sh" \
+     "${PREFIX}/etc/conda/${F}.d/go1.4-bootstrap.sh"
 done
