@@ -9,7 +9,7 @@ if errorlevel 1 exit 1
 rem Don't need the cached build objects
 rmdir /s /q %SRC_DIR%\go1.4-bootstrap\pkg\obj
 
-mkdir "%PREFIX%\%PKG_NAME%"
+mkdir "%PREFIX%\go1.4-bootstrap"
 xcopy /s /y /i /q "%SRC_DIR%\go1.4-bootstrap\*" "%PREFIX%\go1.4-bootstrap\"
 
 rem Copy the rendered [de]activate scripts to %PREFIX%\etc\conda\[de]activate.d.
