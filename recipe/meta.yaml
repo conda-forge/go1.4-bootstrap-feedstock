@@ -12,7 +12,7 @@ source:
     folder: {{ name }}
 
 build:
-  number: 1000
+  number: 1001
   binary_relocation: False
   detect_binary_files_with_prefix: False
   force_ignore_keys:  # [win]
@@ -25,17 +25,11 @@ build:
     - libc.so.6
 
 requirements:
-  build:
-    {% if not win %}
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
-    - {{ compiler('fortran') }}
-    {% else %}
-    - {{ n }}toolchain
-    {% endif %}
-    - perl 5.20.3.1  # [not win]
-  host:
   run:
+    # Replace with target_platform once conda-forge/conda-smithy#971 is solved
+    - {{ pin_subpackage(name.lower()+"_linux-64", exact=True) }}  # [linux]
+    - {{ pin_subpackage(name.lower()+"_osx-64", exact=True) }}    # [osx]
+    - {{ pin_subpackage(name.lower()+"_win-64", exact=True) }}    # [win]
 
 test:
    files:
@@ -46,6 +40,33 @@ test:
 
      - cmd /c echo x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }}  # [win]
      - cmd /c if x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }} exit 1   # [win]
+
+outputs:
+  # Replace with _{{ target_platform }} once conda-forge/conda-smithy#971 is solved
+  - name: {{ name|lower }}_linux-64  # [linux]
+  - name: {{ name|lower }}_osx-64    # [osx]
+  - name: {{ name|lower }}_win-64    # [win]
+    script: build-core.sh   # [not win]
+    script: build-core.bat  # [win]
+    requirements:
+      build:
+        {% if not win %}
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ compiler('fortran') }}
+        {% else %}
+        - {{ n }}toolchain
+        {% endif %}
+        - perl  # [not win]
+    test:
+      files:
+        - hello.go
+      commands:
+        - ${GOROOT_BOOTSTRAP}/bin/go help  # [not win]
+        - cmd /c %GOROOT_BOOTSTRAP%\bin\go help   # [win]
+
+        - cmd /c echo x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }}  # [win]
+        - cmd /c if x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }} exit 1   # [win]
 
 about:
   home: http://golang.org
