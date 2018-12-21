@@ -1,6 +1,8 @@
 About go1.4-bootstrap
 =====================
 
+[![Powered by NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](http://numfocus.org)
+
 Home: http://golang.org
 
 Package license: BSD-Style
@@ -23,7 +25,7 @@ Current build status
 
 [![Linux](https://img.shields.io/circleci/project/github/conda-forge/go1.4-bootstrap-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/go1.4-bootstrap-feedstock)
 [![OSX](https://img.shields.io/travis/conda-forge/go1.4-bootstrap-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/go1.4-bootstrap-feedstock)
-[![Windows](https://img.shields.io/appveyor/ci/conda-forge/go1.4-bootstrap-feedstock/master.svg?label=Windows)](https://ci.appveyor.com/project/conda-forge/go1-4-bootstrap-feedstock/branch/master)
+[![Windows](https://img.shields.io/appveyor/ci/conda-forge/go1-4-bootstrap-feedstock/master.svg?label=Windows)](https://ci.appveyor.com/project/conda-forge/go1-4-bootstrap-feedstock/branch/master)
 
 Current release info
 ====================
@@ -31,6 +33,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-go1.4--bootstrap-green.svg)](https://anaconda.org/conda-forge/go1.4-bootstrap) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/go1.4-bootstrap.svg)](https://anaconda.org/conda-forge/go1.4-bootstrap) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/go1.4-bootstrap.svg)](https://anaconda.org/conda-forge/go1.4-bootstrap) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/go1.4-bootstrap.svg)](https://anaconda.org/conda-forge/go1.4-bootstrap) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-go1.4--bootstrap_linux--64-green.svg)](https://anaconda.org/conda-forge/go1.4-bootstrap_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/go1.4-bootstrap_linux-64.svg)](https://anaconda.org/conda-forge/go1.4-bootstrap_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/go1.4-bootstrap_linux-64.svg)](https://anaconda.org/conda-forge/go1.4-bootstrap_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/go1.4-bootstrap_linux-64.svg)](https://anaconda.org/conda-forge/go1.4-bootstrap_linux-64) |
 
 Installing go1.4-bootstrap
 ==========================
@@ -41,10 +44,10 @@ Installing `go1.4-bootstrap` from the `conda-forge` channel can be achieved by a
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `go1.4-bootstrap` can be installed with:
+Once the `conda-forge` channel has been enabled, `go1.4-bootstrap, go1.4-bootstrap_linux-64` can be installed with:
 
 ```
-conda install go1.4-bootstrap
+conda install go1.4-bootstrap go1.4-bootstrap_linux-64
 ```
 
 It is possible to list all of the versions of `go1.4-bootstrap` available on your platform with:
@@ -111,3 +114,10 @@ In order to produce a uniquely identifiable distribution:
  * If the version of a package **is** being increased, please remember to return
    the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string)
    back to 0.
+
+Feedstock Maintainers
+=====================
+
+* [@scopatz](https://github.com/scopatz/)
+* [@sodre](https://github.com/sodre/)
+
