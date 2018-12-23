@@ -10,9 +10,11 @@ source:
   - url: https://storage.googleapis.com/golang/{{ name }}-{{ version }}.tar.gz
     sha256: f4ff5b5eb3a3cae1c993723f3eab519c5bae18866b5e5f96fe1102f0cb5c3e52
     folder: {{ name }}
+    patches:
+      - 0001-remove-macosx-version.diff  # [osx]
 
 build:
-  number: 1001
+  number: 1002
   binary_relocation: False
   detect_binary_files_with_prefix: False
   force_ignore_keys:  # [win]

@@ -1,0 +1,30 @@
+diff --git a/src/cmd/dist/build.c b/src/cmd/dist/build.c
+index 8d82167..f148960 100644
+--- a/src/cmd/dist/build.c
++++ b/src/cmd/dist/build.c
+@@ -705,10 +705,6 @@ install(char *dir)
+ 		}
+ 		// disable word wrapping in error messages
+ 		vadd(&gccargs, "-fmessage-length=0");
+-		if(streq(gohostos, "darwin")) {
+-			// golang.org/issue/5261
+-			vadd(&gccargs, "-mmacosx-version-min=10.6");
+-		}
+ 	}
+ 	if(ldargs.len == 0 && defaultldflags[0] != '\0') {
+ 		bprintf(&b, "%s", defaultldflags);
+diff --git a/src/make.bash b/src/make.bash
+index 104c3ba..00019fb 100755
+--- a/src/make.bash
++++ b/src/make.bash
+@@ -122,10 +122,6 @@ case "$GOHOSTARCH" in
+ 386) mflag=-m32;;
+ amd64) mflag=-m64;;
+ esac
+-if [ "$(uname)" == "Darwin" ]; then
+-	# golang.org/issue/5261
+-	mflag="$mflag -mmacosx-version-min=10.6"
+-fi
+ # if gcc does not exist and $CC is not set, try clang if available.
+ if [ -z "$CC" -a -z "$(type -t gcc)" -a -n "$(type -t clang)" ]; then
+ 	export CC=clang CXX=clang++
