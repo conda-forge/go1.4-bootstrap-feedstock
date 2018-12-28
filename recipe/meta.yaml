@@ -3,7 +3,7 @@
 {% set n = 'm2w64-' if win else '' %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -29,9 +29,9 @@ build:
 requirements:
   run:
     # Replace with target_platform once conda-forge/conda-smithy#971 is solved
-    - {{ pin_subpackage(name.lower()+"_linux-64", exact=True) }}  # [linux]
-    - {{ pin_subpackage(name.lower()+"_osx-64", exact=True) }}    # [osx]
-    - {{ pin_subpackage(name.lower()+"_win-64", exact=True) }}    # [win]
+    - {{ pin_subpackage(name+"_linux-64", exact=True) }}  # [linux]
+    - {{ pin_subpackage(name+"_osx-64", exact=True) }}    # [osx]
+    - {{ pin_subpackage(name+"_win-64", exact=True) }}    # [win]
 
 test:
    files:
@@ -45,9 +45,9 @@ test:
 
 outputs:
   # Replace with _{{ target_platform }} once conda-forge/conda-smithy#971 is solved
-  - name: {{ name|lower }}_linux-64  # [linux]
-  - name: {{ name|lower }}_osx-64    # [osx]
-  - name: {{ name|lower }}_win-64    # [win]
+  - name: {{ name }}_linux-64  # [linux]
+  - name: {{ name }}_osx-64    # [osx]
+  - name: {{ name }}_win-64    # [win]
     script: build-core.sh   # [not win]
     script: build-core.bat  # [win]
     requirements:
