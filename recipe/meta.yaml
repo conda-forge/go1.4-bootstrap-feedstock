@@ -28,10 +28,7 @@ build:
 
 requirements:
   run:
-    # Replace with target_platform once conda-forge/conda-smithy#971 is solved
-    - {{ pin_subpackage(name+"_linux-64", exact=True) }}  # [linux]
-    - {{ pin_subpackage(name+"_osx-64", exact=True) }}    # [osx]
-    - {{ pin_subpackage(name+"_win-64", exact=True) }}    # [win]
+    - {{ pin_subpackage(name+"_"+target_platform, exact=True) }}
 
 test:
    commands:
@@ -42,10 +39,7 @@ test:
      - cmd /c if x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }} exit 1   # [win]
 
 outputs:
-  # Replace with _{{ target_platform }} once conda-forge/conda-smithy#971 is solved
-  - name: {{ name }}_linux-64  # [linux]
-  - name: {{ name }}_osx-64    # [osx]
-  - name: {{ name }}_win-64    # [win]
+  - name: {{ name }}_{{ target_platform }}
     script: build-core.sh   # [not win]
     script: build-core.bat  # [win]
     requirements:
