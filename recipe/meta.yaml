@@ -1,9 +1,8 @@
 {% set name = "go1.4-bootstrap" %}
 {% set version = "20171003" %}
-{% set n = 'm2w64-' if win else '' %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -14,12 +13,13 @@ source:
       - 0001-remove-macosx-version.diff  # [osx]
 
 build:
-  number: 1002
+  number: 1003
   binary_relocation: False
   detect_binary_files_with_prefix: False
-  force_ignore_keys:  # [win]
-    - c_compiler      # [win]
-    - cxx_compiler    # [win]
+  force_ignore_keys:    # [win]
+    - c_compiler        # [win]
+    - cxx_compiler      # [win]
+    - fortran_compiler  # [win]
   # test data links to these DSOs
   missing_dso_whitelist:
     - /usr/lib/libSystem.B.dylib
@@ -28,47 +28,32 @@ build:
 
 requirements:
   run:
-    # Replace with target_platform once conda-forge/conda-smithy#971 is solved
-    - {{ pin_subpackage(name.lower()+"_linux-64", exact=True) }}  # [linux]
-    - {{ pin_subpackage(name.lower()+"_osx-64", exact=True) }}    # [osx]
-    - {{ pin_subpackage(name.lower()+"_win-64", exact=True) }}    # [win]
+    - {{ pin_subpackage(name+"_"+target_platform, exact=True) }}
 
 test:
-   files:
-     - hello.go
    commands:
-     - ${GOROOT_BOOTSTRAP}/bin/go help  # [not win]
-     - cmd /c %GOROOT_BOOTSTRAP%\bin\go help   # [win]
+     - ${GOROOT_BOOTSTRAP}/bin/go help        # [unix]
+     - cmd /c %GOROOT_BOOTSTRAP%\bin\go help  # [win]
 
-     - cmd /c echo x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }}  # [win]
-     - cmd /c if x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }} exit 1   # [win]
+     - cmd /c echo x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }}       # [win]
+     - cmd /c if x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }} exit 1  # [win]
 
 outputs:
-  # Replace with _{{ target_platform }} once conda-forge/conda-smithy#971 is solved
-  - name: {{ name|lower }}_linux-64  # [linux]
-  - name: {{ name|lower }}_osx-64    # [osx]
-  - name: {{ name|lower }}_win-64    # [win]
-    script: build-core.sh   # [not win]
+  - name: {{ name }}_{{ target_platform }}
+    script: build-core.sh   # [unix]
     script: build-core.bat  # [win]
     requirements:
       build:
-        {% if not win %}
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - {{ compiler('fortran') }}
-        {% else %}
-        - {{ n }}toolchain
-        {% endif %}
-        - perl  # [not win]
+        - {{ compiler('c') }}        # [unix]
+        - {{ compiler('m2w64_c') }}  # [win]
+        - perl  # [unix]
     test:
-      files:
-        - hello.go
       commands:
-        - ${GOROOT_BOOTSTRAP}/bin/go help  # [not win]
-        - cmd /c %GOROOT_BOOTSTRAP%\bin\go help   # [win]
+        - ${GOROOT_BOOTSTRAP}/bin/go help        # [unix]
+        - cmd /c %GOROOT_BOOTSTRAP%\bin\go help  # [win]
 
-        - cmd /c echo x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }}  # [win]
-        - cmd /c if x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }} exit 1   # [win]
+        - cmd /c echo x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }}       # [win]
+        - cmd /c if x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }} exit 1  # [win]
 
 about:
   home: http://golang.org
