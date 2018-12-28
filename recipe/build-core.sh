@@ -2,7 +2,7 @@
 set -euf
 export CGO_ENABLED=0
 pushd go1.4-bootstrap/src
-./all.bash
+./make.bash
 popd
 
 # Don't need the cached build objects
