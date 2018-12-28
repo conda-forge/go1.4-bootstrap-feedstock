@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 set CGO_ENABLED=0
 rem First, build go1.4 using gcc
 cd "go1.4-bootstrap\src"
-call make.bat
+call all.bat
 if errorlevel 1 exit 1
 
 rem Don't need the cached build objects
