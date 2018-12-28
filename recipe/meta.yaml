@@ -32,32 +32,28 @@ requirements:
 
 test:
    commands:
-     - ${GOROOT_BOOTSTRAP}/bin/go help  # [not win]
-     - cmd /c %GOROOT_BOOTSTRAP%\bin\go help   # [win]
+     - ${GOROOT_BOOTSTRAP}/bin/go help        # [unix]
+     - cmd /c %GOROOT_BOOTSTRAP%\bin\go help  # [win]
 
-     - cmd /c echo x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }}  # [win]
-     - cmd /c if x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }} exit 1   # [win]
+     - cmd /c echo x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }}       # [win]
+     - cmd /c if x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }} exit 1  # [win]
 
 outputs:
   - name: {{ name }}_{{ target_platform }}
-    script: build-core.sh   # [not win]
+    script: build-core.sh   # [unix]
     script: build-core.bat  # [win]
     requirements:
       build:
         - {{ compiler('c') }}        # [unix]
-        - {{ compiler('cxx') }}      # [unix]
-        - {{ compiler('fortran') }}  # [unix]
-        - {{ compiler('m2w64_c') }}        # [win]
-        - {{ compiler('m2w64_cxx') }}      # [win]
-        - {{ compiler('m2w64_fortran') }}  # [win]
-        - perl  # [not win]
+        - {{ compiler('m2w64_c') }}  # [win]
+        - perl  # [unix]
     test:
       commands:
-        - ${GOROOT_BOOTSTRAP}/bin/go help  # [not win]
-        - cmd /c %GOROOT_BOOTSTRAP%\bin\go help   # [win]
+        - ${GOROOT_BOOTSTRAP}/bin/go help        # [unix]
+        - cmd /c %GOROOT_BOOTSTRAP%\bin\go help  # [win]
 
-        - cmd /c echo x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }}  # [win]
-        - cmd /c if x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }} exit 1   # [win]
+        - cmd /c echo x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }}       # [win]
+        - cmd /c if x%GOROOT_BOOTSTRAP% NEQ x%CONDA_PREFIX%\{{ name }} exit 1  # [win]
 
 about:
   home: http://golang.org
